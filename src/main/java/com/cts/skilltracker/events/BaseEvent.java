@@ -3,9 +3,9 @@ package com.cts.skilltracker.events;
 
 public class BaseEvent<T> {
 	
-	public final Long id;
+	public final T id;
 
-    public BaseEvent(Long id) {
+    public BaseEvent(T id) {
         this.id = id;
     }
 

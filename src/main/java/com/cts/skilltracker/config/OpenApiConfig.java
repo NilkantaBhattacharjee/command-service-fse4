@@ -3,7 +3,7 @@ package com.cts.skilltracker.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.cts.skilltracker.utils.SkillTrackerConstants;
+import com.cts.skilltracker.utils.CommandSideConstants;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -20,12 +20,12 @@ public class OpenApiConfig {
 
 	private Info getInfo(OpenApiProperties properties) {
 		return new Info().title(properties.getProjectTitle()).description(properties.getProjectDescription())
-				.version(properties.getProjectVersion()).termsOfService(SkillTrackerConstants.OPEN_API_TC_URL)
+				.version(properties.getProjectVersion()).termsOfService(CommandSideConstants.OPEN_API_TC_URL)
 				.license(getLicense());
 	}
 
 	private License getLicense() {
-		return new License().name(SkillTrackerConstants.OPEN_API_LICENSE).url(SkillTrackerConstants.OPEN_API_TC_URL);
+		return new License().name(CommandSideConstants.OPEN_API_LICENSE).url(CommandSideConstants.OPEN_API_TC_URL);
 	}
 
 }

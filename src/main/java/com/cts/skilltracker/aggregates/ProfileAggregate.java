@@ -1,6 +1,6 @@
 package com.cts.skilltracker.aggregates;
 
-import java.util.List;
+import java.util.Map;
 
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -12,102 +12,76 @@ import com.cts.skilltracker.commands.CreateProfileCommand;
 import com.cts.skilltracker.commands.UpdateProfileCommand;
 import com.cts.skilltracker.events.ProfileCreatedEvent;
 import com.cts.skilltracker.events.ProfileUpdateEvent;
-import com.cts.skilltracker.models.SkillDTO;
-
-
 
 @Aggregate
 public class ProfileAggregate {
 
 	@AggregateIdentifier
-	private Long userId;
+	private String userId;
 
 	private String associateId;
 	private String name;
 	private String email;
-	private Integer mobile;
-	private List<SkillDTO> skills;
-	
-	public ProfileAggregate() {
-		
-	}
-	
+	private String mobile;
+	private Map<String, Integer> skills;
 
-	public Long getUserId() {
+	public ProfileAggregate() {
+		//required no-op constructor
+	}
+
+	public String getUserId() {
 		return userId;
 	}
 
-
-
-	public void setUserId(Long userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-
-
 
 	public String getAssociateId() {
 		return associateId;
 	}
 
-
-
 	public void setAssociateId(String associateId) {
 		this.associateId = associateId;
 	}
-
-
 
 	public String getName() {
 		return name;
 	}
 
-
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
 
 	public String getEmail() {
 		return email;
 	}
 
-
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-
-
-	public Integer getMobile() {
+	public String getMobile() {
 		return mobile;
 	}
 
-
-
-	public void setMobile(Integer mobile) {
+	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
 
-
-
-	public List<SkillDTO> getSkills() {
+	public Map<String, Integer> getSkills() {
 		return skills;
 	}
 
-
-
-	public void setSkills(List<SkillDTO> skills) {
+	public void setSkills(Map<String, Integer> skills) {
 		this.skills = skills;
 	}
 
-
-	/*Create Event*/
+	/* Create Event */
 	@CommandHandler
 	public ProfileAggregate(CreateProfileCommand cmd) {
-		AggregateLifecycle.apply(new ProfileCreatedEvent(cmd.id, cmd.associateId, cmd.name, cmd.email, cmd.mobile, cmd.skills));
+		AggregateLifecycle
+				.apply(new ProfileCreatedEvent(cmd.id, cmd.associateId, cmd.name, cmd.email, cmd.mobile, cmd.skills));
 	}
 
 	@EventSourcingHandler
@@ -119,22 +93,20 @@ public class ProfileAggregate {
 		this.mobile = profileCreatedEvent.mobile;
 		this.skills = profileCreatedEvent.skills;
 
-		AggregateLifecycle.apply(new ProfileCreatedEvent(this.userId, this.associateId, this.name, this.email, this.mobile, this.skills));
 	}
-	
-	/*Update Event*/
-	
+
+	/* Update Event */
+
 	@CommandHandler
 	public ProfileAggregate(UpdateProfileCommand cmd) {
 		AggregateLifecycle.apply(new ProfileUpdateEvent(cmd.id, cmd.skills));
 	}
-	
+
 	@EventSourcingHandler
 	protected void on(ProfileUpdateEvent profileUpdateEvent) {
 		this.userId = profileUpdateEvent.id;
 		this.skills = profileUpdateEvent.skills;
 
-		AggregateLifecycle.apply(new ProfileUpdateEvent(this.userId, this.skills));
 	}
 
 }

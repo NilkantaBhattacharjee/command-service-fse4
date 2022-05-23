@@ -17,7 +17,7 @@ public class RabbitMQSender {
 	RabbitTemplate rabbitTemplate;
 	
 	public void send(ProfileRsp user){
-        rabbitTemplate.convertAndSend(rmqProp.getExchangeName(),rmqProp.getRoutingKey(), user);
+        rabbitTemplate.convertAndSend(rmqProp.getExchange(),rmqProp.getRoutingKey(), user);
 
     }
 

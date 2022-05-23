@@ -20,22 +20,22 @@ public class RabbitMQConfiguration {
 
 	@Bean
 	Queue defaultStream() {
-		return new Queue(rmqProp.getQueueName(), true);
+		return new Queue(rmqProp.getQueue(), true);
 	}
 	
 	@Bean
     FanoutExchange eventBusExchange() {
-        return new FanoutExchange(rmqProp.getExchangeName(), true, false);
+        return new FanoutExchange(rmqProp.getExchange(), true, false);
     }
 
     @Bean
     Binding binding() {
-        return new Binding(rmqProp.getQueueName(), Binding.DestinationType.QUEUE, rmqProp.getExchangeName(), "*.*", null);
+        return new Binding(rmqProp.getQueue(), Binding.DestinationType.QUEUE, rmqProp.getExchange(), "*.*", null);
     }
 
     @Bean
     CachingConnectionFactory connectionFactory() {
-        CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory(rmqProp.getHostname());
+        CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory(rmqProp.getHost());
         cachingConnectionFactory.setUsername(rmqProp.getUsername());
         cachingConnectionFactory.setPassword(rmqProp.getPassword());
         return cachingConnectionFactory;

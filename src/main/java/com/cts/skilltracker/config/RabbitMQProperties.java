@@ -7,23 +7,23 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "spring.rabbitmq")
 public class RabbitMQProperties {
 
-	private String hostname;
+	private String host;
 	private String username;
 	private String password;
-	private String queueName;
-	private String exchangeName;
+	private String queue;
+	private String exchange;
 	private String routingKey;
 
 	public RabbitMQProperties() {
 
 	}
 
-	public String getHostname() {
-		return hostname;
+	public String getHost() {
+		return host;
 	}
 
-	public void setHostname(String hostname) {
-		this.hostname = hostname;
+	public void setHost(String host) {
+		this.host = host;
 	}
 
 	public String getUsername() {
@@ -42,20 +42,20 @@ public class RabbitMQProperties {
 		this.password = password;
 	}
 
-	public String getQueueName() {
-		return queueName;
+	public String getQueue() {
+		return queue;
 	}
 
-	public void setQueueName(String queueName) {
-		this.queueName = queueName;
+	public void setQueue(String queue) {
+		this.queue = queue;
 	}
 
-	public String getExchangeName() {
-		return exchangeName;
+	public String getExchange() {
+		return exchange;
 	}
 
-	public void setExchangeName(String exchangeName) {
-		this.exchangeName = exchangeName;
+	public void setExchange(String exchange) {
+		this.exchange = exchange;
 	}
 
 	public String getRoutingKey() {
@@ -69,16 +69,16 @@ public class RabbitMQProperties {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("RabbitMQProperties [hostname=");
-		builder.append(hostname);
+		builder.append("RabbitMQProperties [host=");
+		builder.append(host);
 		builder.append(", username=");
 		builder.append(username);
 		builder.append(", password=");
 		builder.append(password);
-		builder.append(", queueName=");
-		builder.append(queueName);
-		builder.append(", exchangeName=");
-		builder.append(exchangeName);
+		builder.append(", queue=");
+		builder.append(queue);
+		builder.append(", exchange=");
+		builder.append(exchange);
 		builder.append(", routingKey=");
 		builder.append(routingKey);
 		builder.append("]");

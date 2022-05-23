@@ -1,14 +1,12 @@
 package com.cts.skilltracker.commands;
 
-import java.util.List;
+import java.util.Map;
 
-import com.cts.skilltracker.models.SkillDTO;
+public class UpdateProfileCommand extends BaseCommand<String> {
 
-public class UpdateProfileCommand extends BaseCommand<Long> {
+	public final Map<String,Integer> skills;
 
-	public final List<SkillDTO> skills;
-
-	public UpdateProfileCommand(Long id, List<SkillDTO> skills) {
+	public UpdateProfileCommand(String id, Map<String,Integer> skills) {
 		super(id);
 		this.skills = skills;
 	}

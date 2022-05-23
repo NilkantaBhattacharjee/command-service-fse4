@@ -3,17 +3,19 @@ package com.cts.skilltracker.entities;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.cts.skilltracker.models.SkillDTO;
+import com.cts.skilltracker.utils.CommandSideConstants;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "associate_profile")
@@ -24,9 +26,8 @@ public class ProfileEntity {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id")
-	private Long userId;
+	private String userId;
 
 	@Column(name = "associate_id")
 	private String associateId;
@@ -38,23 +39,25 @@ public class ProfileEntity {
 	private String email;
 
 	@Column(name = "mobile")
-	private Integer mobile;
+	private String mobile;
 
 	@Column(name = "created_by")
-	private String createdBy;
+	private String createdBy = CommandSideConstants.CREATED_MODIFIED_BY;
 
 	@CreationTimestamp
 	@Column(name = "created_on")
 	private Timestamp createdOn;
 
-	@OneToMany(mappedBy = "profileEntity")
-	private List<SkillDTO> skills;
+	@OneToMany(fetch  = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
+	@JsonIgnore
+	private List<SkillEntity> skills;
 
-	public Long getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Long userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
@@ -82,11 +85,11 @@ public class ProfileEntity {
 		this.email = email;
 	}
 
-	public Integer getMobile() {
+	public String getMobile() {
 		return mobile;
 	}
 
-	public void setMobile(Integer mobile) {
+	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
 
@@ -106,12 +109,17 @@ public class ProfileEntity {
 		this.createdOn = createdOn;
 	}
 
-	public List<SkillDTO> getSkills() {
+	public List<SkillEntity> getSkills() {
 		return skills;
 	}
 
-	public void setSkills(List<SkillDTO> skills) {
+	public void setSkills(List<SkillEntity> skills) {
 		this.skills = skills;
+	}
+	
+	public void addSkill(SkillEntity skill) {
+		this.skills.add(skill);
+		skill.setProfileEntity(this);
 	}
 
 	@Override

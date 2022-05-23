@@ -1,11 +1,11 @@
 package com.cts.skilltracker.models;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Map;
 
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Pattern.Flag;
 import javax.validation.constraints.Size;
 
@@ -15,37 +15,30 @@ import javax.validation.constraints.Size;
 public class ProfileCreateDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Long userId;
 	
 	@NotBlank(message = "The associate Id is required.")
-	@Size(min = 5, max = 30, message = "The length of associate Id must be between 5 and 30 characters.")
+	@Size(min = 5, max = 30, message = "The length of associate Id must be between 5 and 30 characters")
+	@Pattern(regexp = "^CTS", message = "The associate id must start with the prefix CTS")
 	private String associateId;
 	
 	@NotBlank(message = "The full name is required.")
-	@Size(min = 5, max = 30, message = "The length of name must be between 5 and 30 characters.")
+	@Size(min = 5, max = 30, message = "The length of name must be between 5 and 30 characters")
 	private String name;
 	
-	@Email(message = "The email address is invalid.", flags = { Flag.CASE_INSENSITIVE })
 	@NotBlank(message = "The email is required")
+	@Email(message = "The email address is invalid.", flags = { Flag.CASE_INSENSITIVE })
 	private String email;
 	
-	@Digits(message="Mobile Number should contain 10 digits.", fraction = 0, integer = 10)
-	private Integer mobile;
+	@NotBlank(message = "The mobile is required")
+	@Pattern(regexp = "^\\d{10}$", message="Mobile Number should contain 10 digits")
+	private String mobile;
 	
-	private List<SkillDTO> skills;
+	private Map<String,Integer> skills;
 
 	public ProfileCreateDTO() {
 
 	}
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-
+	
 	public String getAssociateId() {
 		return associateId;
 	}
@@ -70,28 +63,26 @@ public class ProfileCreateDTO implements Serializable {
 		this.email = email;
 	}
 
-	public Integer getMobile() {
+	public String getMobile() {
 		return mobile;
 	}
 
-	public void setMobile(Integer mobile) {
+	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
 
-	public List<SkillDTO> getSkills() {
+	public Map<String,Integer> getSkills() {
 		return skills;
 	}
 
-	public void setSkills(List<SkillDTO> skills) {
+	public void setSkills(Map<String,Integer> skills) {
 		this.skills = skills;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("ProfileCreateDTO [userId=");
-		builder.append(userId);
-		builder.append(", associateId=");
+		builder.append("ProfileCreateDTO [associateId=");
 		builder.append(associateId);
 		builder.append(", name=");
 		builder.append(name);

@@ -1,7 +1,7 @@
 package com.cts.skilltracker.models;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Map;
 
 /**
  * 
@@ -10,22 +10,22 @@ import java.util.List;
 public class ProfileRsp implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Integer userId;
+	private String userId;
 	private String associateId;
 	private String name;
 	private String email;
-	private Integer mobile;
-	private List<SkillDTO> skills;
+	private String mobile;
+	private Map<String, Integer> skills;
 
 	public ProfileRsp() {
 
 	}
 
-	public Integer getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
@@ -53,19 +53,19 @@ public class ProfileRsp implements Serializable {
 		this.email = email;
 	}
 
-	public Integer getMobile() {
+	public String getMobile() {
 		return mobile;
 	}
 
-	public void setMobile(Integer mobile) {
+	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
 
-	public List<SkillDTO> getSkills() {
+	public Map<String, Integer> getSkills() {
 		return skills;
 	}
 
-	public void setSkills(List<SkillDTO> skills) {
+	public void setSkills(Map<String, Integer> skills) {
 		this.skills = skills;
 	}
 

@@ -1,7 +1,7 @@
 package com.cts.skilltracker.models;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Map;
 
 /**
  * 
@@ -10,18 +10,27 @@ import java.util.List;
 public class ProfileUpdateDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private List<SkillDTO> skills;
+	private Map<String, Integer> skills;
 
 	public ProfileUpdateDTO() {
 
 	}
 
-	public List<SkillDTO> getSkills() {
+	public Map<String, Integer> getSkills() {
 		return skills;
 	}
 
-	public void setSkills(List<SkillDTO> skills) {
+	public void setSkills(Map<String, Integer> skills) {
 		this.skills = skills;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ProfileUpdateDTO [skills=");
+		builder.append(skills);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }
