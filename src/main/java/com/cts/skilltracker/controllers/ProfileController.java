@@ -43,14 +43,15 @@ public class ProfileController {
 	@Autowired
 	ProfileValidator validator;
 
-	@Operation(summary = "Add profile", description = "Add Profile API", tags = { "profile-controller" })
+	@Operation(summary = "Add profile", description = CommandSideConstants.ADD_PROFILE_DESC, tags = {
+			"profile-controller" })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "201", description = "Successful creation", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProfileRsp.class))),
 			@ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(mediaType = "application/json")),
 			@ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json")) })
 	@PostMapping(value = CommandSideConstants.ADD_PROFILE_ROUTE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ProfileRsp> createProfile(
-			@Parameter(description = CommandSideConstants.ADD_PROFILE_DESC, required = true, schema = @Schema(implementation = ProfileCreateDTO.class)) @Valid @RequestBody ProfileCreateDTO profileCreateDTO) {
+			@Parameter(description = "Request payload for adding a profile", required = true, schema = @Schema(implementation = ProfileCreateDTO.class)) @Valid @RequestBody ProfileCreateDTO profileCreateDTO) {
 
 		String METHOD = "createProfile() - ";
 		logger.info(METHOD + "Entry -> ProfileCreateDTO:: " + profileCreateDTO.toString());
@@ -58,10 +59,11 @@ public class ProfileController {
 
 		// Add validations here
 		boolean existsFlag = validator.doesAssociateExist(profileCreateDTO.getAssociateId());
-		if(existsFlag) {
-			throw new AssociateExistsException("Profile with Associate ID - " + profileCreateDTO.getAssociateId() + " already exists");
+		if (existsFlag) {
+			throw new AssociateExistsException(
+					"Profile with Associate ID - " + profileCreateDTO.getAssociateId() + " already exists");
 		}
-		
+
 		String skillNameDiff = validator.validateSkillName(profileCreateDTO.getSkills());
 
 		if (skillNameDiff != null && !skillNameDiff.equalsIgnoreCase("")) {
@@ -81,22 +83,23 @@ public class ProfileController {
 
 	}
 
-	@Operation(summary = "Update profile", description = "Update Profile API", tags = { "profile-controller" })
+	@Operation(summary = "Update profile", description = CommandSideConstants.UPDATE_PROFILE_DESC, tags = {
+			"profile-controller" })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "201", description = "Successful creation", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProfileRsp.class))),
 			@ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(mediaType = "application/json")),
 			@ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json")) })
 	@PostMapping(value = CommandSideConstants.UPDATE_PROFILE_ROUTE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ProfileRsp> updateProfile(
-			@Parameter(description = CommandSideConstants.UPDATE_PROFILE_DESC, required = true, schema = @Schema(implementation = ProfileUpdateDTO.class)) @PathVariable(value = "userId") String userId,
-			@RequestBody ProfileUpdateDTO profileUpdateDTO) {
+			@Parameter(description = "Unique ID of the associate profile", required = true) @PathVariable(value = "userId") String userId,
+			@Parameter(description = "Request payload for updating the skills associated with a profile", required = true, schema = @Schema(implementation = ProfileUpdateDTO.class)) @RequestBody ProfileUpdateDTO profileUpdateDTO) {
 
 		String METHOD = "updateProfile() - ";
 		logger.info(METHOD + "Entry -> Updating profile for user:: " + userId);
 		ProfileRsp responseDTO = new ProfileRsp();
 
 		// Add validations here
-		
+
 		String skillNameDiff = validator.validateSkillName(profileUpdateDTO.getSkills());
 
 		if (skillNameDiff != null && !skillNameDiff.equalsIgnoreCase("")) {
@@ -107,6 +110,8 @@ public class ProfileController {
 		if (flag) {
 			throw new InvalidExpertiseLevelException("Invalid expertise level. Level should be between 0 and 20");
 		}
+		
+		//Need to add another validation during update
 
 		// Call service layer
 		responseDTO = profileCmdSvc.updateUserProfile(userId, profileUpdateDTO);
