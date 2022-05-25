@@ -1,6 +1,7 @@
 package com.cts.skilltracker.entities;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -8,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -48,10 +48,9 @@ public class ProfileEntity {
 	@Column(name = "created_on")
 	private Timestamp createdOn;
 
-	@OneToMany(fetch  = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
+	@OneToMany(mappedBy = "profileEntity", targetEntity = SkillEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
-	private List<SkillEntity> skills;
+	private List<SkillEntity> skills = new ArrayList<>();
 
 	public String getUserId() {
 		return userId;
@@ -114,9 +113,12 @@ public class ProfileEntity {
 	}
 
 	public void setSkills(List<SkillEntity> skills) {
-		this.skills = skills;
+		this.skills.addAll(skills);
+		for(SkillEntity skill: skills) {
+			skill.setProfileEntity(this);
+		}
 	}
-	
+
 	public void addSkill(SkillEntity skill) {
 		this.skills.add(skill);
 		skill.setProfileEntity(this);
@@ -144,5 +146,7 @@ public class ProfileEntity {
 		builder.append("]");
 		return builder.toString();
 	}
+
+	
 
 }

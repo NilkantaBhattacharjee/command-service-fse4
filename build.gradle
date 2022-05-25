@@ -23,6 +23,10 @@ jar {
     archiveName = 'skill-command-side.jar'
 }
 
+ext {
+	set('springCloudVersion', "2021.0.2")
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -34,11 +38,18 @@ dependencies {
 		exclude group:'org.axonframework', module: 'axon-server-connector'
 	}
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.8'
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
 }
 
 tasks.named('test') {

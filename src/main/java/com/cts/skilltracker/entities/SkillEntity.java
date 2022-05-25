@@ -18,7 +18,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import com.cts.skilltracker.utils.CommandSideConstants;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 @Entity
 @Table(name = "associate_skill_tracker")
 public class SkillEntity {
@@ -48,8 +47,8 @@ public class SkillEntity {
 	@Column(name = "last_modified_on")
 	private Timestamp lastModifiedOn;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = false)
+	@ManyToOne(targetEntity = ProfileEntity.class, fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
 	@JsonIgnore
 	private ProfileEntity profileEntity;
 
@@ -138,10 +137,10 @@ public class SkillEntity {
 		builder.append(lastModifiedBy);
 		builder.append(", lastModifiedOn=");
 		builder.append(lastModifiedOn);
-		builder.append(", profileEntity=");
-		builder.append(profileEntity);
 		builder.append("]");
 		return builder.toString();
 	}
+
+	
 
 }
