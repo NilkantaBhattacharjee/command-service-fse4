@@ -23,7 +23,7 @@ public class ProfileCreateDTO implements Serializable {
 	@Schema(name = "associateId", description = "Associate Id of profile", type = "String", minimum = "5", maximum = "30", required = true, example = "CTS001")
 	@NotBlank(message = "The associate Id is required.")
 	@Size(min = 5, max = 30, message = "The length of associate Id must be between 5 and 30 characters")
-	//@Pattern(regexp = "^([CTS]{3})[0-9]$", message = "The associate id must start with the prefix CTS")
+	@Pattern(regexp = "^([CTS]{3})[0-9]*$", message = "The associate id must start with the prefix CTS")
 	private String associateId;
 	
 	@Schema(name = "name", description = "Name of profile", type = "String", minimum = "5", maximum = "30", required = true, example = "John Doe")
