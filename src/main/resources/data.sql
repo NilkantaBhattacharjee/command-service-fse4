@@ -1,0 +1,13 @@
+INSERT INTO `skill_lookup` (`skill_type`,`skill_name`) VALUES ('TECHNICAL','HTML-CSS-JAVASCRIPT');
+INSERT INTO `skill_lookup` (`skill_type`,`skill_name`) VALUES ('TECHNICAL','ANGULAR');
+INSERT INTO `skill_lookup` (`skill_type`,`skill_name`) VALUES ('TECHNICAL','REACT');
+INSERT INTO `skill_lookup` (`skill_type`,`skill_name`) VALUES ('TECHNICAL','SPRING');
+INSERT INTO `skill_lookup` (`skill_type`,`skill_name`) VALUES ('TECHNICAL','RESTFUL');
+INSERT INTO `skill_lookup` (`skill_type`,`skill_name`) VALUES ('TECHNICAL','HIBERNATE');
+INSERT INTO `skill_lookup` (`skill_type`,`skill_name`) VALUES ('TECHNICAL','GIT');
+INSERT INTO `skill_lookup` (`skill_type`,`skill_name`) VALUES ('TECNICAL','DOCKER');
+INSERT INTO `skill_lookup` (`skill_type`,`skill_name`) VALUES ('TECHNICAL','JENKINS');
+INSERT INTO `skill_lookup` (`skill_type`,`skill_name`) VALUES ('TECHNICAL','AWS');
+INSERT INTO `skill_lookup` (`skill_type`,`skill_name`) VALUES ('NON-TECHNICAL','SPOKEN');
+INSERT INTO `skill_lookup` (`skill_type`,`skill_name`) VALUES ('NON-TECHNICAL','COMMUNICATION');
+INSERT INTO `skill_lookup` (`skill_type`,`skill_name`) VALUES ('NON-TECHNICAL','APTITUDE');

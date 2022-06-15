@@ -212,7 +212,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 	/**
 	 * Defining a global exception hander allows us to deal with all those
-	 * exceptions that don’t have specific handlers.
+	 * exceptions that do not have specific handlers.
 	 * 
 	 * @param ex
 	 * @param request

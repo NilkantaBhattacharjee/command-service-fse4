@@ -19,8 +19,8 @@ repositories {
 }
 
 jar {
-    baseName = 'skill-command-side'
-    archiveName = 'skill-command-side.jar'
+    baseName = 'command-side'
+    archiveName = 'command-side.jar'
 }
 
 ext {
