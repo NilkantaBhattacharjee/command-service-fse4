@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQProperties {
 
 	private String host;
+	private String port;
 	private String username;
 	private String password;
 	private String queue;
@@ -24,6 +25,14 @@ public class RabbitMQProperties {
 
 	public void setHost(String host) {
 		this.host = host;
+	}
+
+	public String getPort() {
+		return port;
+	}
+
+	public void setPort(String port) {
+		this.port = port;
 	}
 
 	public String getUsername() {
@@ -71,6 +80,8 @@ public class RabbitMQProperties {
 		StringBuilder builder = new StringBuilder();
 		builder.append("RabbitMQProperties [host=");
 		builder.append(host);
+		builder.append(", port=");
+		builder.append(port);
 		builder.append(", username=");
 		builder.append(username);
 		builder.append(", password=");

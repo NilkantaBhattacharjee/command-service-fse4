@@ -34,6 +34,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-amqp'
 	implementation 'org.springframework.boot:spring-boot-starter-cache'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'com.rabbitmq:amqp-client:5.15.0'
 	implementation 'org.axonframework:axon-spring-boot-starter:4.5.9', {
 		exclude group:'org.axonframework', module: 'axon-server-connector'
 	}

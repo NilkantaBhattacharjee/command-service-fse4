@@ -38,6 +38,9 @@ public class ProfileCommandServiceImpl implements ProfileCommandService {
 
 	@Autowired
 	RabbitMQSender rmqSender;
+	
+	@Autowired
+	AmazonRabbitMQConnect amazonRabbitMQConnect;
 
 	public ProfileCommandServiceImpl() {
 
@@ -72,10 +75,13 @@ public class ProfileCommandServiceImpl implements ProfileCommandService {
 				// This should publish the message on Rabbit MQ
 				logger.info(METHOD + "Publishing message on Rabbit MQ...");
 				rmqSender.send(profileRsp);
+				//amazonRabbitMQConnect.sendToAwsMQ(profileRsp);
+				logger.info(METHOD + "Message successfully sent..");
 			}
 
 		} catch (Exception ex) {
 			logger.error(METHOD + "Exception occurred:: " + ex.getMessage());
+			ex.printStackTrace();
 		}
 		logger.info(METHOD + "Exit");
 		return profileRsp;
